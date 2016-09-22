@@ -1,0 +1,81 @@
+package speedticket;
+import java.io.*;
+import java.util.*;
+public class Main 
+{
+	static String fileIn = "", fileOut = "";
+	static int[] fields;
+	public static void main(String[] args) throws IOException 
+	{
+		for(int interesante = 1; interesante < 11; interesante++)
+		{
+			double time = System.currentTimeMillis();
+			fileIn = Integer.toString(interesante) + ".in";
+			fileOut = Integer.toString(interesante) + ".outME";
+			BufferedReader br = new BufferedReader(new FileReader("src/speedticket/" + fileIn));
+			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("src/speedticket/" + fileOut)));
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			
+			int[] speedLimit = new int[100];
+			int N = Integer.parseInt(st.nextToken());
+			int M = Integer.parseInt(st.nextToken());
+			int milestart = 0;
+			for (int ide = 0; ide < N; ide ++)
+			{
+				st = new StringTokenizer(br.readLine());
+				int a = Integer.parseInt(st.nextToken());
+				int b = Integer.parseInt(st.nextToken());
+				for(int i = 0; i < a; i++)
+				{
+					speedLimit[milestart + i] = b;
+				}
+				milestart+=a;
+			}
+			int max = 0;
+			milestart = 0;
+			for(int ide = 0; ide < M; ide++)
+			{
+				st = new StringTokenizer(br.readLine());
+				int a = Integer.parseInt(st.nextToken());
+				int b = Integer.parseInt(st.nextToken());
+				for(int i = 0; i < a; i++)
+				{
+					int diff = b-speedLimit[milestart + i];
+					if(diff > max)
+						max = diff;
+				}
+			}
+			pw.println(max);
+			
+			pw.close();
+			System.out.println("File " + interesante + " finished");
+			System.out.println(System.currentTimeMillis() - time);
+			System.out.println(checkFile(fileOut));
+		}
+		//ret is ouput
+		
+		
+	}
+	
+	public static boolean checkFile(String i) throws IOException
+	{
+		BufferedReader br, brCorrect;
+		br = new BufferedReader(new FileReader("src/speedticket/" + i));
+		String correctFileIn = i.substring(0, i.length() - 2);
+		brCorrect = new BufferedReader(new FileReader("src/speedticket/" + correctFileIn));
+		int counter = 0;
+		while(true)
+		{
+			counter++;
+			try{
+				if(Integer.parseInt(br.readLine()) != Integer.parseInt(brCorrect.readLine()))
+				{
+					System.out.println("ERROR AT LINE " + counter + " IN FILE " + correctFileIn);
+					return false;
+				}
+			}catch(Exception e){
+				return true;
+			}
+		}
+	}
+}

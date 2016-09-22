@@ -1,0 +1,96 @@
+import java.io.*;
+import java.util.*;
+public class Main 
+{
+	static String fileIn = "2.in", fileOut = "hayBales.out";
+	static int[] fields;
+	public static void main(String[] args) throws IOException 
+	{
+		double time = System.currentTimeMillis();
+		for(int i = 1; i < 11; i++)
+		{
+			fileIn = Integer.toString(i) + ".in";
+			fileOut = Integer.toString(i) + ".outME";
+			BufferedReader br = new BufferedReader(new FileReader(fileIn));
+			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(fileOut)));
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			int n = Integer.parseInt(st.nextToken());
+			int q = Integer.parseInt(st.nextToken());
+			
+			fields = new int[n];
+			st = new StringTokenizer(br.readLine());
+			for(int j = 0; j < n; j++)
+				fields[j] = Integer.parseInt(st.nextToken());
+			for(int line = 0; line < q; line++)
+			{
+				st = new StringTokenizer(br.readLine());
+				String thang = st.nextToken();
+				if(thang.equals("M"))
+					pw.println(m(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
+				else if(thang.equals("S"))
+					pw.println(s(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
+				else if(thang.equals("P"))
+					p(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
+	
+			}
+			pw.close();
+			System.out.println("File " + i + "finished");
+			System.out.println(checkFile(fileOut));
+		}
+		System.out.print(System.currentTimeMillis() - time);
+		//ret is ouput
+		
+		
+	}
+	
+	public static boolean checkFile(String i) throws IOException
+	{
+		BufferedReader br, brCorrect;
+		br = new BufferedReader(new FileReader(i));
+		String correctFileIn = i.substring(i.length() - 2);
+		brCorrect = new BufferedReader(new FileReader(correctFileIn));
+		int counter = 0;
+		while(true)
+		{
+			counter++;
+			try{
+				if(Integer.parseInt(br.readLine()) != Integer.parseInt(brCorrect.readLine()))
+					System.out.println("ERROR AT LINE " + counter + " IN FILE " + correctFileIn);
+				
+					return false;
+			}catch(Exception e){
+				return true;
+			}
+		}
+	}
+	
+	public static String m(int a, int b)
+	{
+		int min = fields[a - 1];
+		for(int i = a; i < b; i++)
+		{
+			if(fields[i] < min)
+				min = fields[i];
+		}
+		
+		return Integer.toString(min);
+		
+	}
+	
+	public static String s(int a, int b)
+	{
+		int sum = fields[a - 1];
+		for(int i = a; i < b; i++)
+		{
+			sum+=fields[i];
+		}
+		
+		return Integer.toString(sum);
+	}
+	
+	public static void p(int a, int b, int c)
+	{
+		for(int i = a-1; i < b; i++)
+			fields[i] += c;
+	}
+}

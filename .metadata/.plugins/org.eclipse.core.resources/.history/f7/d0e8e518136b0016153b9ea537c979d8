@@ -1,0 +1,52 @@
+package speedticket;
+import java.io.*;
+import java.util.*;
+public class Main 
+{
+	static String fileIn = "", fileOut = "";
+	static int[] fields;
+	public static void main(String[] args) throws IOException 
+	{
+		for(int i = 1; i < 11; i++)
+		{
+			double time = System.currentTimeMillis();
+			fileIn = Integer.toString(i) + ".in";
+			fileOut = Integer.toString(i) + ".outME";
+			BufferedReader br = new BufferedReader(new FileReader("src/speedticket/" + fileIn));
+			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("src/speedticket/" + fileOut)));
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			
+			
+			
+			pw.close();
+			System.out.println("File " + i + " finished");
+			System.out.println(System.currentTimeMillis() - time);
+			System.out.println(checkFile(fileOut));
+		}
+		//ret is ouput
+		
+		
+	}
+	
+	public static boolean checkFile(String i) throws IOException
+	{
+		BufferedReader br, brCorrect;
+		br = new BufferedReader(new FileReader("src/speedticket/" + i));
+		String correctFileIn = i.substring(0, i.length() - 2);
+		brCorrect = new BufferedReader(new FileReader("src/speedticket/" + correctFileIn));
+		int counter = 0;
+		while(true)
+		{
+			counter++;
+			try{
+				if(Integer.parseInt(br.readLine()) != Integer.parseInt(brCorrect.readLine()))
+				{
+					System.out.println("ERROR AT LINE " + counter + " IN FILE " + correctFileIn);
+					return false;
+				}
+			}catch(Exception e){
+				return true;
+			}
+		}
+	}
+}

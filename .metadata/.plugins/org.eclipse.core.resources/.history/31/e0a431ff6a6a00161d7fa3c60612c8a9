@@ -1,0 +1,23 @@
+import java.io.*;
+import java.util.*;
+public class Main 
+{
+	static String fileIn = "", fileOut = "";
+	
+	public static void main(String[] args) throws IOException 
+	{
+		BufferedReader br = new BufferedReader(new FileReader(fileIn));
+		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(fileOut)));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		int q = Integer.parseInt(st.nextToken());
+		
+		//ret is ouput
+		String ret = "What the fuck is up";
+		
+		
+		pw.println(ret);
+		pw.close();
+	}
+	
+}

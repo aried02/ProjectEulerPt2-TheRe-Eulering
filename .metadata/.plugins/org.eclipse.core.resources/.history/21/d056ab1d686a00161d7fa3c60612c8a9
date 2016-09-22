@@ -1,0 +1,21 @@
+import java.io.*;
+import java.util.*;
+public class Main 
+{
+	public static void main(String[] args) throws IOException 
+	{
+		//BufferedReader br = new BufferedReader(new FileReader("maxflow.in"));
+		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("maxflow.out")));
+		//StringTokenizer st = new StringTokenizer(br.readLine());
+		//int n = Integer.parseInt(st.nextToken());
+		//int k = Integer.parseInt(st.nextToken());
+		
+		//ret is ouput
+		String ret = "What the fuck is up";
+		
+		
+		pw.println(ret);
+		pw.close();
+	}
+	
+}
