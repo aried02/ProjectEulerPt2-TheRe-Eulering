@@ -16,17 +16,20 @@ for i in range(10,1000000):
 
 print(max)
 """
+def totient(boolpri, n):
+	total = 1
+	for i in range(2,n):
+		if boolpri[i]:
+			if(n % i == 0):
+				total = total*(1 - i**-1)
+	return total*n
 
-arr = [True for i in range(50)]
-for i in range(2, 50):
+
+
+arr = [True for i in range(1000000)]
+for i in range(2, 1000000):
 	if(arr[i] == True):
-		for j in range(i*i, 50, i):
+		for j in range(i*i, 1000000, i):
 			arr[j] = False
-total = 1
-for i in range(2,50):
-	if arr[i]:
-		if(total * i > 50):
-			print(total)
-			break
-		else:
-			total = total*i
+
+print(totient(10))
