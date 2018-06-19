@@ -5,8 +5,9 @@ class Sieve:
         self._max = max
         self._array = [True for i in range(self._max)]
         for i in range(2, self._max):
-            for j in range(i+i, self._max, i):
-                self._array[j] = False
+            if self._array[i]:
+                for j in range(i+i, self._max, i):
+                    self._array[j] = False
         self._array[0] = False
         self._array[1] = False
     
