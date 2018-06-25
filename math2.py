@@ -8,8 +8,7 @@ def phi(n):
     amount = 0
     prod = 1.0
     for p in factorint(n):
-        if n % p == 0:
-            prod = prod*(1.0 - 1.0/p)
+        prod = prod*(1.0 - 1.0/p)
     return int(round(n*prod))
 
 def first_n_primes(n):

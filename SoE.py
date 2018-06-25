@@ -14,10 +14,14 @@ class Sieve:
     def bool_list(self):
         return self._array
     
-    def prime_list(self):
+    def prime_list(self, maxi=None):
         counter = 0
+        if maxi is None:
+            maxi=self._max
         ls = []
         for i in self._array:
+            if counter > maxi:
+                return ls
             if i:
                 ls.append(counter)
             counter = counter + 1
