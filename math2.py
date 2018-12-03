@@ -17,3 +17,6 @@ def first_n_primes(n):
     s = SoE.Sieve(int(top)).prime_list()[:n]
     return s
 
+def gcd(a, b):
+    if b == 0: return a
+    return gcd(b, a%b)
