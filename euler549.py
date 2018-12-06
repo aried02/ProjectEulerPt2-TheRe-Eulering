@@ -1,41 +1,35 @@
 from sympy.ntheory import factorint
 from multiprocessing import Pool
-def doit(n, i):
-    counter = 0
-    while i > 0:
-        counter = counter + n
-        tmp = counter
-        while tmp % n == 0:
-            i = i - 1
-            tmp = tmp // n
-    return counter
-def stuff(n):
+mem = {}
+for p in [2, 3, 5, 7]:
+    resp = [0]
+    for j in range(1,27):
+        pfact = factorint(p*j)
+        resp.append(pfact[p])
+    newresp = [sum(resp[:i+1]) for i in range(27)]
+    mem[p] = newresp
+#now for each pow l map it to which index we need to make that pow
+memo = {}
+for p in [2, 3, 5, 7]:
+    resp = [0 for i in range(27)]
+    for l in range(27):
+        for i in range(20):
+            if mem[p][i] >= l:
+                resp[l] = i*p
+                break
+    memo[p] = resp
+        
+def s(n):
     pfact = factorint(n)
     maxi = 0
-    #print(pfact)
-    for i in pfact.keys():
-        if i*pfact[i] < i**2:
-            a = i*pfact[i]
+    for p in pfact.keys():
+        if pfact[p] < p:
+            res = pfact[p]*p
         else:
-            a = doit(i, pfact[i])
-        if a > maxi:
-            maxi = a
-    #print(maxi)
-    return (maxi, n)
-def isPrime(n):
-    if n%2 == 0:
-        return False
-    for i in range(3, int(n**(1./2.)) + 1, 2):
-        if n % i == 0:
-            return False
-    return True
-pool = Pool(4)
-s = 0
-checkpoint = 10**12
-for i in pool.imap(stuff, range(2, 10**8 + 1)):
-    if s > checkpoint:
-        print i[1]
-        checkpoint = checkpoint + 10**12
-    s = s + i[0]
-print s
-# Takes a lil long
+            res = memo[p][pfact[p]]
+        if res > maxi:
+            maxi = res
+    return maxi
+
+res = 0
+

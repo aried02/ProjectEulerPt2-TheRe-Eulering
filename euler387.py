@@ -3,10 +3,10 @@ from math2 import *
 # We are gonna generate all Rashid numbers first from previous ones
 rNums = [[i for i in range(1, 10)]]
 
-def isRashid(i):
+def isHarshad(i):
     s = sum(map(int, list(i)))
     return int(i) % s == 0
-def genRashid(n):
+def genHarshad(n):
     if n == 13:
         return
     # n is numDigits
